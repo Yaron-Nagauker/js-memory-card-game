@@ -12,6 +12,7 @@ body{
     align-items: center;
     justify-content: center;
     background-color: rgb(49, 99, 100);
+    overflow: hidden;
 }
 
 #bord{

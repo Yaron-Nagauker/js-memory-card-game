@@ -69,6 +69,8 @@ const countTime = () => {
         $timer.innerText = timer;
         if (timer === 0) {
             clearInterval(timerInterval);
+            $bord.removeEventListener('click',selectCard);
+            
         }
     }, 1000);
 }
@@ -76,9 +78,10 @@ const countTime = () => {
 const checkIfGameStatus = () => {
     openCard = document.getElementsByClassName('open').length;
     x = document.querySelectorAll('li');
-    console.log(openCard,x);
+    // console.log(openCard,x);
     if (openCard === 12) {
         clearInterval(timerInterval);
+        // $bord.removeEventListener('click',selectCard);
         steps = 0;
         match = 0;
         Swal.fire({
@@ -89,18 +92,19 @@ const checkIfGameStatus = () => {
             confirmButtonText: 'Play Again',
         }).then((result) => {
             if (result.isConfirmed) {
-                timer = 0;
+                timer = 120;
                 match = 0;
                 steps = 0;
-                $bord = '';
+                $bord.innerHTML = '';
+                clearInterval('timerInterval');
+                
                 runGame();
             }
         })
     }
 }
 
-$bord.addEventListener('click',($event) =>{
-    // checkIfGameStatus()
+const selectCard = ($event) =>{
     const isCard = $event.target.localName === 'li';
     const isOpenedCard = $event.target.classList.contains('open');
     const isFlippedCard = $event.target.classList.contains('flip');
@@ -111,12 +115,14 @@ $bord.addEventListener('click',($event) =>{
     const card = document.querySelectorAll('li')[cardIndex];
     card.classList.replace('close','flip');
     comperCards.push(card);
-    console.log(comperCards);
     if (comperCards.length === 2) {
-       $bord.classList.add('comper')
+       $bord.classList.add('comper');
        comper(comperCards);
     }
-});
+}
+
+$bord.addEventListener('click',selectCard);
+
 
 runGame = () => {
     shuffle(cards);
