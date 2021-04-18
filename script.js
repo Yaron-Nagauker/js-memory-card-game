@@ -78,7 +78,6 @@ const countTime = () => {
 const checkIfGameStatus = () => {
     openCard = document.getElementsByClassName('open').length;
     x = document.querySelectorAll('li');
-    // console.log(openCard,x);
     if (openCard === 12) {
         clearInterval(timerInterval);
         // $bord.removeEventListener('click',selectCard);
@@ -97,7 +96,6 @@ const checkIfGameStatus = () => {
                 steps = 0;
                 $bord.innerHTML = '';
                 clearInterval('timerInterval');
-                
                 runGame();
             }
         })
